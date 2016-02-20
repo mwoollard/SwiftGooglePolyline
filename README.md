@@ -1,11 +1,11 @@
 ## Swift Google Polylines
 Google's direction API provides points along route segments as an encoded string. For example the encoded string:
 
-```_p~iF~ps|U_ulLnnqC_mqNvxq`@``` 
+    _p~iF~ps|U_ulLnnqC_mqNvxq`@
 
 decodes to the coordinate points: 
 
-`(38.5, -120.2), (40.7, -120.95), (43.252, -126.453)`
+    (38.5, -120.2), (40.7, -120.95), (43.252, -126.453)
 
 Full details of the algorithm used can be found [here](ttps://developers.google.com/maps/documentation/utilities/polylinealgorithm).
 
