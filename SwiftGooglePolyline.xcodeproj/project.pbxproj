@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2CAE24EE1C78B89100D268D9 /* SwiftGooglePolyline.h in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE24ED1C78B89100D268D9 /* SwiftGooglePolyline.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CAE24F51C78B89100D268D9 /* SwiftGooglePolyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE24EA1C78B89100D268D9 /* SwiftGooglePolyline.framework */; };
+		2CAE24FA1C78B89100D268D9 /* SwiftGooglePolylineStringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE24F91C78B89100D268D9 /* SwiftGooglePolylineStringExtensionTests.swift */; };
+		2CAE25051C78B8B800D268D9 /* String+GooglePolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE25041C78B8B800D268D9 /* String+GooglePolyline.swift */; };
+		2CAE25071C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE25061C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift */; };
+		2CAE25091C78C2EB00D268D9 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE25081C78C2EB00D268D9 /* TestData.swift */; };
+		2CAE250B1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE250A1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2CAE24F61C78B89100D268D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2CAE24E11C78B89100D268D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CAE24E91C78B89100D268D9;
+			remoteInfo = SwiftGooglePolyline;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2CAE24EA1C78B89100D268D9 /* SwiftGooglePolyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftGooglePolyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CAE24ED1C78B89100D268D9 /* SwiftGooglePolyline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = SwiftGooglePolyline.h; sourceTree = "<group>"; };
+		2CAE24EF1C78B89100D268D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CAE24F41C78B89100D268D9 /* SwiftGooglePolylineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftGooglePolylineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CAE24F91C78B89100D268D9 /* SwiftGooglePolylineStringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGooglePolylineStringExtensionTests.swift; sourceTree = "<group>"; };
+		2CAE24FB1C78B89100D268D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CAE25041C78B8B800D268D9 /* String+GooglePolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+GooglePolyline.swift"; sourceTree = "<group>"; };
+		2CAE25061C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKPolyline+GooglePolyline.swift"; sourceTree = "<group>"; };
+		2CAE25081C78C2EB00D268D9 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		2CAE250A1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGooglePolylineMKPolylineExtensionTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2CAE24E61C78B89100D268D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CAE24F11C78B89100D268D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CAE24F51C78B89100D268D9 /* SwiftGooglePolyline.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2CAE24E01C78B89100D268D9 = {
+			isa = PBXGroup;
+			children = (
+				2CAE24EC1C78B89100D268D9 /* SwiftGooglePolyline */,
+				2CAE24F81C78B89100D268D9 /* SwiftGooglePolylineTests */,
+				2CAE24EB1C78B89100D268D9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2CAE24EB1C78B89100D268D9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2CAE24EA1C78B89100D268D9 /* SwiftGooglePolyline.framework */,
+				2CAE24F41C78B89100D268D9 /* SwiftGooglePolylineTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CAE24EC1C78B89100D268D9 /* SwiftGooglePolyline */ = {
+			isa = PBXGroup;
+			children = (
+				2CAE24ED1C78B89100D268D9 /* SwiftGooglePolyline.h */,
+				2CAE24EF1C78B89100D268D9 /* Info.plist */,
+				2CAE25041C78B8B800D268D9 /* String+GooglePolyline.swift */,
+				2CAE25061C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift */,
+			);
+			path = SwiftGooglePolyline;
+			sourceTree = "<group>";
+		};
+		2CAE24F81C78B89100D268D9 /* SwiftGooglePolylineTests */ = {
+			isa = PBXGroup;
+			children = (
+				2CAE25081C78C2EB00D268D9 /* TestData.swift */,
+				2CAE250A1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift */,
+				2CAE24F91C78B89100D268D9 /* SwiftGooglePolylineStringExtensionTests.swift */,
+				2CAE24FB1C78B89100D268D9 /* Info.plist */,
+			);
+			path = SwiftGooglePolylineTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2CAE24E71C78B89100D268D9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2CAE24E91C78B89100D268D9 /* SwiftGooglePolyline */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CAE24FE1C78B89100D268D9 /* Build configuration list for PBXNativeTarget "SwiftGooglePolyline" */;
+			buildPhases = (
+				2CAE24E51C78B89100D268D9 /* Sources */,
+				2CAE24E61C78B89100D268D9 /* Frameworks */,
+				2CAE24E71C78B89100D268D9 /* Headers */,
+				2CAE24E81C78B89100D268D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftGooglePolyline;
+			productName = SwiftGooglePolyline;
+			productReference = 2CAE24EA1C78B89100D268D9 /* SwiftGooglePolyline.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2CAE24F31C78B89100D268D9 /* SwiftGooglePolylineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CAE25011C78B89100D268D9 /* Build configuration list for PBXNativeTarget "SwiftGooglePolylineTests" */;
+			buildPhases = (
+				2CAE24F01C78B89100D268D9 /* Sources */,
+				2CAE24F11C78B89100D268D9 /* Frameworks */,
+				2CAE24F21C78B89100D268D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2CAE24F71C78B89100D268D9 /* PBXTargetDependency */,
+			);
+			name = SwiftGooglePolylineTests;
+			productName = SwiftGooglePolylineTests;
+			productReference = 2CAE24F41C78B89100D268D9 /* SwiftGooglePolylineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2CAE24E11C78B89100D268D9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Mark Woollard";
+				TargetAttributes = {
+					2CAE24E91C78B89100D268D9 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					2CAE24F31C78B89100D268D9 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 2CAE24E41C78B89100D268D9 /* Build configuration list for PBXProject "SwiftGooglePolyline" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2CAE24E01C78B89100D268D9;
+			productRefGroup = 2CAE24EB1C78B89100D268D9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2CAE24E91C78B89100D268D9 /* SwiftGooglePolyline */,
+				2CAE24F31C78B89100D268D9 /* SwiftGooglePolylineTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2CAE24E81C78B89100D268D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CAE24F21C78B89100D268D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2CAE24E51C78B89100D268D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CAE24EE1C78B89100D268D9 /* SwiftGooglePolyline.h in Sources */,
+				2CAE25051C78B8B800D268D9 /* String+GooglePolyline.swift in Sources */,
+				2CAE25071C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CAE24F01C78B89100D268D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CAE250B1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift in Sources */,
+				2CAE24FA1C78B89100D268D9 /* SwiftGooglePolylineStringExtensionTests.swift in Sources */,
+				2CAE25091C78C2EB00D268D9 /* TestData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2CAE24F71C78B89100D268D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CAE24E91C78B89100D268D9 /* SwiftGooglePolyline */;
+			targetProxy = 2CAE24F61C78B89100D268D9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2CAE24FC1C78B89100D268D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2CAE24FD1C78B89100D268D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2CAE24FF1C78B89100D268D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SwiftGooglePolyline/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwoollard.SwiftGooglePolyline;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2CAE25001C78B89100D268D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SwiftGooglePolyline/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwoollard.SwiftGooglePolyline;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2CAE25021C78B89100D268D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SwiftGooglePolylineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwoollard.SwiftGooglePolylineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2CAE25031C78B89100D268D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SwiftGooglePolylineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwoollard.SwiftGooglePolylineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2CAE24E41C78B89100D268D9 /* Build configuration list for PBXProject "SwiftGooglePolyline" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CAE24FC1C78B89100D268D9 /* Debug */,
+				2CAE24FD1C78B89100D268D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CAE24FE1C78B89100D268D9 /* Build configuration list for PBXNativeTarget "SwiftGooglePolyline" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CAE24FF1C78B89100D268D9 /* Debug */,
+				2CAE25001C78B89100D268D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2CAE25011C78B89100D268D9 /* Build configuration list for PBXNativeTarget "SwiftGooglePolylineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CAE25021C78B89100D268D9 /* Debug */,
+				2CAE25031C78B89100D268D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2CAE24E11C78B89100D268D9 /* Project object */;
+}
