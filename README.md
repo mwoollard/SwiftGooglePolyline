@@ -1,4 +1,6 @@
-## Swift Google Polylines
+## Swift Google Polylines 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 Google's direction API provides points along route segments as an encoded string. For example the encoded string:
 
     _p~iF~ps|U_ulLnnqC_mqNvxq`@
