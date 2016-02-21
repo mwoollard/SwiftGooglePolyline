@@ -26,6 +26,7 @@
 
 import XCTest
 import MapKit
+
 @testable import SwiftGooglePolyline
 
 class SwiftGooglePolylineMKPolylineExtensionTests: XCTestCase {
@@ -41,23 +42,21 @@ class SwiftGooglePolylineMKPolylineExtensionTests: XCTestCase {
     }
     
     func testConstructionFromPolylineString() {
-        validate(MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline))
+        XCTAssertNoThrow(validate(try MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)))
     }
     
     func testConstructionFromLocationSequence() {
-        validate(MKPolyline(sequence: testEncodedGooglePolyline.encodedGooglePolylineAsSequence))
+        XCTAssertNoThrow(validate(try MKPolyline(sequence: testEncodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())))
     }
     
     func testEncoding() {
-        let polyline = MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
-        let encoded = polyline.googlePolyline
-        XCTAssertEqual(encoded, testEncodedGooglePolyline)
+        XCTAssertNoThrowEqual(testEncodedGooglePolyline, try MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline).googlePolyline)
     }
     
     func testConstructionFromPolylinePerformance() {
         self.measureBlock {
             (0..<10000).forEach { _ in
-                let _ = MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
+                let _ = try! MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
             }
         }
     }
@@ -65,13 +64,13 @@ class SwiftGooglePolylineMKPolylineExtensionTests: XCTestCase {
     func testConstructionFromSequencePerformance() {
         self.measureBlock {
             (0..<10000).forEach { _ in
-                let _ = MKPolyline(sequence: testEncodedGooglePolyline.encodedGooglePolylineAsSequence)
+                let _ = try! MKPolyline(sequence: testEncodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())
             }
         }
     }
     
     func testEncodingPerformance() {
-        let polyline = MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
+        let polyline = try! MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
         self.measureBlock {
             (0..<10000).forEach { _ in
                 let _ = polyline.googlePolyline

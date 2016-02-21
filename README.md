@@ -14,18 +14,20 @@ The Swift extensions provided here support encoding and decoding to and from the
 ## Usage
 Examples of usage
 #### Decoding
+Decoding throws `GooglePolylineError.InvalidPolylineString` if the string is not a valid Google polyline.
+
 ```
 let googlePolyline = "`_p~iF~ps|U_ulLnnqC_mqNvxq`@"
 
 // Get lazy sequence of CLLocationCoordinate2D 
-let seq = googlePolyline.encodedGooglePolylineAsSequence
+let seq = try googlePolyline.makeCoordinateSequenceFromGooglePolyline()
 
 // Get array of CLLocationCoordinate2D
-let array = googlePolyline.encodedGooglePolylineAsArray
+let array = try googlePolyline.makeCoordinateArrayFromGooglePolyline()
 
 // Get MKPolyline
-let polyline = googlePolyline.encodedGooglePolylineAsMKPolyline
-let anotherPolyline = MKPolyline(encodedGooglePolyline:googlePolyline)
+let polyline = try googlePolyline.makeMKPolylineFromGooglePolyline()
+let anotherPolyline = try MKPolyline(encodedGooglePolyline:googlePolyline)
 ```
 #### Encoding
 ```

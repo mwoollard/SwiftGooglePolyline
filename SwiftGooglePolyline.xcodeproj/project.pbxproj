@@ -14,6 +14,8 @@
 		2CAE25071C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE25061C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift */; };
 		2CAE25091C78C2EB00D268D9 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE25081C78C2EB00D268D9 /* TestData.swift */; };
 		2CAE250B1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE250A1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift */; };
+		2CAE250D1C79AF3800D268D9 /* GooglePolylineError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE250C1C79AF3800D268D9 /* GooglePolylineError.swift */; };
+		2CAE250F1C79B5CE00D268D9 /* XCTTestCase+Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE250E1C79B5CE00D268D9 /* XCTTestCase+Exceptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,10 @@
 		2CAE25061C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKPolyline+GooglePolyline.swift"; sourceTree = "<group>"; };
 		2CAE25081C78C2EB00D268D9 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		2CAE250A1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGooglePolylineMKPolylineExtensionTests.swift; sourceTree = "<group>"; };
+		2CAE250C1C79AF3800D268D9 /* GooglePolylineError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePolylineError.swift; sourceTree = "<group>"; };
+		2CAE250E1C79B5CE00D268D9 /* XCTTestCase+Exceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTTestCase+Exceptions.swift"; sourceTree = "<group>"; };
+		2CAE25101C79BA2C00D268D9 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2CAE25111C79BA2C00D268D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +67,8 @@
 		2CAE24E01C78B89100D268D9 = {
 			isa = PBXGroup;
 			children = (
+				2CAE25101C79BA2C00D268D9 /* LICENSE */,
+				2CAE25111C79BA2C00D268D9 /* README.md */,
 				2CAE24EC1C78B89100D268D9 /* SwiftGooglePolyline */,
 				2CAE24F81C78B89100D268D9 /* SwiftGooglePolylineTests */,
 				2CAE24EB1C78B89100D268D9 /* Products */,
@@ -83,6 +91,7 @@
 				2CAE24EF1C78B89100D268D9 /* Info.plist */,
 				2CAE25041C78B8B800D268D9 /* String+GooglePolyline.swift */,
 				2CAE25061C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift */,
+				2CAE250C1C79AF3800D268D9 /* GooglePolylineError.swift */,
 			);
 			path = SwiftGooglePolyline;
 			sourceTree = "<group>";
@@ -94,6 +103,7 @@
 				2CAE250A1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift */,
 				2CAE24F91C78B89100D268D9 /* SwiftGooglePolylineStringExtensionTests.swift */,
 				2CAE24FB1C78B89100D268D9 /* Info.plist */,
+				2CAE250E1C79B5CE00D268D9 /* XCTTestCase+Exceptions.swift */,
 			);
 			path = SwiftGooglePolylineTests;
 			sourceTree = "<group>";
@@ -208,6 +218,7 @@
 				2CAE24EE1C78B89100D268D9 /* SwiftGooglePolyline.h in Sources */,
 				2CAE25051C78B8B800D268D9 /* String+GooglePolyline.swift in Sources */,
 				2CAE25071C78B8E500D268D9 /* MKPolyline+GooglePolyline.swift in Sources */,
+				2CAE250D1C79AF3800D268D9 /* GooglePolylineError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +229,7 @@
 				2CAE250B1C78C77500D268D9 /* SwiftGooglePolylineMKPolylineExtensionTests.swift in Sources */,
 				2CAE24FA1C78B89100D268D9 /* SwiftGooglePolylineStringExtensionTests.swift in Sources */,
 				2CAE25091C78C2EB00D268D9 /* TestData.swift in Sources */,
+				2CAE250F1C79B5CE00D268D9 /* XCTTestCase+Exceptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +404,7 @@
 				2CAE25001C78B89100D268D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2CAE25011C78B89100D268D9 /* Build configuration list for PBXNativeTarget "SwiftGooglePolylineTests" */ = {
 			isa = XCConfigurationList;
@@ -400,6 +413,7 @@
 				2CAE25031C78B89100D268D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
