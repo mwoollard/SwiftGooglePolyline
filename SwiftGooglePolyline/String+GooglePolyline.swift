@@ -87,6 +87,9 @@ extension String {
                 
                 repeat {
                     byte = Int(polyline[index].value) - 63;
+                    if !(0..<64 ~= byte) {
+                        return nil
+                    }
                     res |= (byte & 0x1F) << shift;
                     shift += 5;
                     index = index.successor()
@@ -122,7 +125,15 @@ extension String {
         
         private let encodedPolyline:String
         
-        init(_ encodedPolyline:String) {
+        init(_ encodedPolyline:String) throws {
+            var index = encodedPolyline.startIndex
+            try encodedPolyline.unicodeScalars.forEach {
+                if !(0..<64 ~= $0.value - 63) {
+                    throw GooglePolylineError.InvalidPolylineString(string: encodedPolyline, errorPosition: index)
+                }
+                index = index.successor()
+            }
+            
             self.encodedPolyline = encodedPolyline
         }
         
@@ -131,6 +142,14 @@ extension String {
         }
     }
     
+    /**
+     Initialize string to Google encoded polyline for a sequence of Core Location
+     points.
+     
+     - parameter sequence: Sequence of points to encode
+     
+     - returns: Initialized encoded string
+     */
     public init<S:SequenceType where S.Generator.Element == CLLocationCoordinate2D>(googlePolylineLocationCoordinateSequence sequence:S) {
         var encoder = CoordinateEncoder()
         self.init(sequence.reduce("") {
@@ -138,11 +157,27 @@ extension String {
         })
     }
     
+    /**
+     Initialize string to Google encoded polyline for a sequence of MKMapPoint
+     points.
+     
+     - parameter sequence: Sequence of points to encode
+     
+     - returns: Initialized encoded string
+     */
     public init<S:SequenceType where S.Generator.Element == MKMapPoint>(googlePolylineMapPointSequence sequence:S) {
         self.init(googlePolylineLocationCoordinateSequence:sequence.map { MKCoordinateForMapPoint($0) })
     }
 
-    public init(googlePolylineMKPolyline polyline:MKPolyline) {
+    /**
+     Initialize string to Google encoded polyline from points contained in an instance
+     of MKMultiPoint.
+     
+     - parameter sequence: Sequence of points to encode
+     
+     - returns: Initialized encoded string
+     */
+    public init(googlePolylineMKMultiPoint polyline:MKMultiPoint) {
         
         var encoder = CoordinateEncoder()
 
@@ -159,21 +194,39 @@ extension String {
         self.init(s)
     }
     
-    public var encodedGooglePolylineAsSequence:AnySequence<CLLocationCoordinate2D> {
-        get {
-            return AnySequence<CLLocationCoordinate2D>(PolylineSequence(self))
-        }
+    /**
+     Returns sequence of CLLocationCoordinate2D points for the decoded Google polyline
+     string.
+     
+     - throws: GooglePolylineError.InvalidPolylineString if string is not valid polyline
+     
+     - returns: Sequence of coordinates
+     */
+    public func makeCoordinateSequenceFromGooglePolyline() throws -> AnySequence<CLLocationCoordinate2D> {
+        return AnySequence<CLLocationCoordinate2D>(try PolylineSequence(self))
+    }
+
+    /**
+     Returns array of CLLocationCoordinate2D points for the decoded Google polyline
+     string.
+     
+     - throws: GooglePolylineError.InvalidPolylineString if string is not valid polyline
+     
+     - returns: Array of coordinates
+     */
+    public func makeCoordinateArrayFromGooglePolyline() throws -> [CLLocationCoordinate2D] {
+        return [CLLocationCoordinate2D](try self.makeCoordinateSequenceFromGooglePolyline())
     }
     
-    public var encodedGooglePolylineAsArray:Array<CLLocationCoordinate2D> {
-        get {
-            return Array<CLLocationCoordinate2D>(self.encodedGooglePolylineAsSequence)
-        }
-    }
-    
-    public var encodedGooglePolylineAsMKPolyline:MKPolyline {
-        get {
-            return MKPolyline(sequence:self.encodedGooglePolylineAsSequence)
-        }
+    /**
+     Returns MKPolyline instance containing points from decoded Google polyline
+     string.
+     
+     - throws: GooglePolylineError.InvalidPolylineString if string is not valid polyline
+     
+     - returns: MKPolyline instance
+     */
+    public func makeMKPolylineFromGooglePolyline() throws -> MKPolyline {
+        return MKPolyline(sequence:try self.makeCoordinateSequenceFromGooglePolyline())
     }
 }

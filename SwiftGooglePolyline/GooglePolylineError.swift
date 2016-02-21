@@ -1,5 +1,5 @@
 //
-//  MKPolyline+GooglePolyline.swift
+//  GooglePolylineError.swift
 //  SwiftGooglePolyline
 //
 //  The MIT License (MIT)
@@ -24,23 +24,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import MapKit
+import Foundation
 
-extension MKPolyline {
-    public convenience init(encodedGooglePolyline:String) throws {
-        self.init(sequence:try encodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())
-    }
-    
-    public convenience init<S:SequenceType where S.Generator.Element == CLLocationCoordinate2D>(sequence:S) {
-        let array = Array<CLLocationCoordinate2D>(sequence)
-        self.init(coordinates: UnsafeMutablePointer(array), count: array.count)
-    }
+public enum GooglePolylineError: ErrorType {
+    case InvalidPolylineString(string:String, errorPosition:String.Index)
 }
 
-extension MKMultiPoint {
-    public var googlePolyline:String {
+extension GooglePolylineError : CustomStringConvertible {
+    
+    public var description:String {
         get {
-            return String(googlePolylineMKMultiPoint: self)
+            switch self {
+            case .InvalidPolylineString(let string, let errorPosition):
+                let offset = string.startIndex.distanceTo(errorPosition)
+                let char = string.characters[string.characters.startIndex.advancedBy(offset)]
+                return "Invalid Google Polyline \"\(string)\". '\(char)' at position \(offset)"
+            }
         }
     }
 }
