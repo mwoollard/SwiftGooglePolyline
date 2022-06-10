@@ -29,85 +29,81 @@ import MapKit
 @testable import SwiftGooglePolyline
 
 class SwiftGooglePolylineStringExtensionTests: XCTestCase {
+  
+  override func setUp() {
+    super.setUp()
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+  }
+  
+  override func tearDown() {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    super.tearDown()
+  }
+  
+  func testDecodingAsSequence() {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    do {
+      let sequence = try testEncodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline()
+      var resultIndex = testDecodedCoordinates.startIndex
+      
+      for coord in sequence {
+        XCTAssertTrue(resultIndex < testDecodedCoordinates.endIndex)
+        XCTAssertEqual(coord.latitude, testDecodedCoordinates[resultIndex].latitude, accuracy: 0.0001)
+        XCTAssertEqual(coord.longitude, testDecodedCoordinates[resultIndex].longitude, accuracy: 0.0001)
+        resultIndex += 1
+      }
+    } catch {
+      XCTAssertTrue(false, "Exception parsing polyline")
     }
+  }
+  
+  func testDecodingAsArray() {
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    do {
+      let array = try testEncodedGooglePolyline.makeCoordinateArrayFromGooglePolyline()
+      var resultIndex = testDecodedCoordinates.startIndex
+      
+      for coord in array {
+        XCTAssertTrue(resultIndex < testDecodedCoordinates.endIndex)
+        XCTAssertEqual(coord.latitude, testDecodedCoordinates[resultIndex].latitude, accuracy: 0.0001)
+        XCTAssertEqual(coord.longitude, testDecodedCoordinates[resultIndex].longitude, accuracy: 0.0001)
+        resultIndex += 1
+      }
+    } catch {
+      XCTAssertTrue(false, "Exception parsing polyline")
     }
+  }
+  
+  func testDecodingAsMKPolyline() throws {
+    let polyline = try testEncodedGooglePolyline.makeMKPolylineFromGooglePolyline()
+    validate(mkPolyline: polyline)
+  }
+  
+  func testEncodingLocationSequence() {
+    let encoded = String(googlePolylineLocationCoordinateSequence:testDecodedCoordinates)
+    XCTAssertEqual(encoded, testEncodedGooglePolyline)
     
-    func testDecodingAsSequence() {
-        
-        do {
-            let sequence = try testEncodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline()
-            var resultIndex = testDecodedCoordinates.startIndex
-
-            for coord in sequence {
-                XCTAssertTrue(resultIndex < testDecodedCoordinates.endIndex)
-                XCTAssertEqualWithAccuracy(coord.latitude, testDecodedCoordinates[resultIndex].latitude, accuracy: 0.0001)
-                XCTAssertEqualWithAccuracy(coord.longitude, testDecodedCoordinates[resultIndex].longitude, accuracy: 0.0001)
-                resultIndex = resultIndex.successor()
-            }
-        } catch {
-            XCTAssertTrue(false, "Exception parsing polyline")
-        }
+  }
+  
+  func testEncodingMKMapPointSequence() {
+    let sequence = testDecodedCoordinates.map(MKMapPoint.init)
+    let encoded = String(googlePolylineMapPointSequence: sequence)
+    XCTAssertEqual(encoded, testEncodedGooglePolyline)
+  }
+  
+  func testDecodePerformance() {
+    self.measure {
+      (0..<10000).forEach { _ in
+        let _ = try! testEncodedGooglePolyline.makeCoordinateArrayFromGooglePolyline()
+      }
     }
-    
-    func testDecodingAsArray() {
-        
-        do {
-            let array = try testEncodedGooglePolyline.makeCoordinateArrayFromGooglePolyline()
-            var resultIndex = testDecodedCoordinates.startIndex
-            
-            for coord in array {
-                XCTAssertTrue(resultIndex < testDecodedCoordinates.endIndex)
-                XCTAssertEqualWithAccuracy(coord.latitude, testDecodedCoordinates[resultIndex].latitude, accuracy: 0.0001)
-                XCTAssertEqualWithAccuracy(coord.longitude, testDecodedCoordinates[resultIndex].longitude, accuracy: 0.0001)
-                resultIndex = resultIndex.successor()
-            }
-        } catch {
-            XCTAssertTrue(false, "Exception parsing polyline")
-        }
+  }
+  
+  func testEncodePerformance() {
+    self.measure {
+      (0..<10000).forEach { _ in
+        let _ = String(googlePolylineLocationCoordinateSequence: testDecodedCoordinates)
+      }
     }
-    
-    func testDecodingAsMKPolyline() {
-        do {
-            validate(try testEncodedGooglePolyline.makeMKPolylineFromGooglePolyline())
-        } catch {
-            XCTAssertTrue(false, "Exception parsing polyline")
-        }
-    }
-
-    func testEncodingLocationSequence() {
-        
-        let encoded = String(googlePolylineLocationCoordinateSequence:testDecodedCoordinates)
-        XCTAssertEqual(encoded, testEncodedGooglePolyline)
-
-    }
-    
-    func testEncodingMKMapPointSequence() {
-        let sequence = testDecodedCoordinates.map { MKMapPointForCoordinate($0) }
-        let encoded = String(googlePolylineMapPointSequence: sequence)
-        XCTAssertEqual(encoded, testEncodedGooglePolyline)
-    }
-    
-    func testDecodePerformance() {
-        self.measureBlock {
-            (0..<10000).forEach { _ in
-                let _ = try! testEncodedGooglePolyline.makeCoordinateArrayFromGooglePolyline()
-            }
-        }
-    }
-    
-    func testEncodePerformance() {
-        self.measureBlock {
-            (0..<10000).forEach { _ in
-                let _ = String(googlePolylineLocationCoordinateSequence:testDecodedCoordinates)
-            }
-        }
-    }
+  }
 }

@@ -26,20 +26,15 @@
 
 import Foundation
 
-public enum GooglePolylineError: ErrorType {
-    case InvalidPolylineString(string:String, errorPosition:String.Index)
-}
-
-extension GooglePolylineError : CustomStringConvertible {
-    
-    public var description:String {
-        get {
-            switch self {
-            case .InvalidPolylineString(let string, let errorPosition):
-                let offset = string.startIndex.distanceTo(errorPosition)
-                let char = string.characters[string.characters.startIndex.advancedBy(offset)]
-                return "Invalid Google Polyline \"\(string)\". '\(char)' at position \(offset)"
-            }
-        }
+public enum GooglePolylineError: Error {
+  case invalidString(string: String, errorPosition: String.Index)
+  
+  var errorDescription: String? {
+    switch self {
+    case .invalidString(let string, let errorPosition):
+      let offset = string.distance(from: string.startIndex, to: errorPosition)
+      let char = string[string.index(string.startIndex, offsetBy: offset)]
+      return "Invalid Google Polyline \"\(string)\". '\(char)' at position \(offset)"
     }
+  }
 }

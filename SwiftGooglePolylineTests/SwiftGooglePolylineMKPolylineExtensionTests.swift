@@ -30,52 +30,44 @@ import MapKit
 @testable import SwiftGooglePolyline
 
 class SwiftGooglePolylineMKPolylineExtensionTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+  func testConstructionFromPolylineString() throws {
+    let polyline = try MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
+    validate(mkPolyline: polyline)
+  }
+  
+  func testConstructionFromLocationSequence() throws {
+    let polyline = try MKPolyline(sequence: testEncodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())
+    validate(mkPolyline: polyline)
+  }
+  
+  func testEncoding() throws {
+    let polyline = try MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline).googlePolyline
+    XCTAssertEqual(testEncodedGooglePolyline, polyline)
+  }
+  
+  func testConstructionFromPolylinePerformance() {
+    self.measure {
+      (0..<10000).forEach { _ in
+        let _ = try! MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
+      }
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+  }
+  
+  func testConstructionFromSequencePerformance() {
+    self.measure {
+      (0..<10000).forEach { _ in
+        let _ = try! MKPolyline(sequence: testEncodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())
+      }
     }
-    
-    func testConstructionFromPolylineString() {
-        XCTAssertNoThrow(validate(try MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)))
+  }
+  
+  func testEncodingPerformance() throws {
+    let polyline = try MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
+    self.measure {
+      (0..<10000).forEach { _ in
+        let _ = polyline.googlePolyline
+      }
     }
-    
-    func testConstructionFromLocationSequence() {
-        XCTAssertNoThrow(validate(try MKPolyline(sequence: testEncodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())))
-    }
-    
-    func testEncoding() {
-        XCTAssertNoThrowEqual(testEncodedGooglePolyline, try MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline).googlePolyline)
-    }
-    
-    func testConstructionFromPolylinePerformance() {
-        self.measureBlock {
-            (0..<10000).forEach { _ in
-                let _ = try! MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
-            }
-        }
-    }
-
-    func testConstructionFromSequencePerformance() {
-        self.measureBlock {
-            (0..<10000).forEach { _ in
-                let _ = try! MKPolyline(sequence: testEncodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())
-            }
-        }
-    }
-    
-    func testEncodingPerformance() {
-        let polyline = try! MKPolyline(encodedGooglePolyline: testEncodedGooglePolyline)
-        self.measureBlock {
-            (0..<10000).forEach { _ in
-                let _ = polyline.googlePolyline
-            }
-        }
-    }
-
+  }
+  
 }
