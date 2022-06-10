@@ -106,8 +106,9 @@ private struct CoordinateEncoder {
   private var latitudeEncoder = PointEncoder()
   private var longitudeEncoder = PointEncoder()
   
-  mutating func encode(coordinate:CLLocationCoordinate2D) -> String {
-    return latitudeEncoder.encode(coordinate: coordinate.latitude) + longitudeEncoder.encode(coordinate: coordinate.longitude)
+  mutating func encode(coordinate: CLLocationCoordinate2D) -> String {
+    self.latitudeEncoder.encode(coordinate: coordinate.latitude)
+    + self.longitudeEncoder.encode(coordinate: coordinate.longitude)
   }
 }
 
@@ -124,9 +125,9 @@ private struct PolylineIterator: IteratorProtocol {
           return nil
         }
         
-        var byte:Int
-        var res:Int = 0
-        var shift:Int = 0
+        var byte: Int
+        var res = 0
+        var shift = 0
         
         repeat {
           byte = Int(polyline[index].value) - 63
@@ -156,8 +157,8 @@ private struct PolylineIterator: IteratorProtocol {
   
   mutating func next() -> Element? {
     guard
-      let lat = latitude.nextValue(polyline: self.polylineUnicodeChars, index: &self.current),
-      let lng = longitude.nextValue(polyline: self.polylineUnicodeChars, index: &self.current)
+      let lat = self.latitude.nextValue(polyline: self.polylineUnicodeChars, index: &self.current),
+      let lng = self.longitude.nextValue(polyline: self.polylineUnicodeChars, index: &self.current)
     else {
       return nil
     }
@@ -182,6 +183,6 @@ private struct PolylineSequence : Sequence {
   }
   
   func makeIterator() -> PolylineIterator {
-    return PolylineIterator(self.encodedPolyline)
+    PolylineIterator(self.encodedPolyline)
   }
 }
