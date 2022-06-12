@@ -27,20 +27,18 @@
 import MapKit
 
 extension MKPolyline {
-    public convenience init(encodedGooglePolyline:String) throws {
-        self.init(sequence:try encodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())
-    }
-    
-    public convenience init<S:SequenceType where S.Generator.Element == CLLocationCoordinate2D>(sequence:S) {
-        let array = Array<CLLocationCoordinate2D>(sequence)
-        self.init(coordinates: UnsafeMutablePointer(array), count: array.count)
-    }
+  public convenience init(encodedGooglePolyline: String) throws {
+    self.init(sequence: try encodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())
+  }
+  
+  public convenience init<S: Sequence>(sequence: S) where S.Iterator.Element == CLLocationCoordinate2D {
+    let array = Array<CLLocationCoordinate2D>(sequence)
+    self.init(coordinates: array, count: array.count)
+  }
 }
 
 extension MKMultiPoint {
-    public var googlePolyline:String {
-        get {
-            return String(googlePolylineMKMultiPoint: self)
-        }
-    }
+  public var googlePolyline: String {
+    return String(googlePolylineMKMultiPoint: self)
+  }
 }

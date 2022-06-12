@@ -26,207 +26,163 @@
 
 import MapKit
 
-extension String {
+public extension String {
+  init<S: Sequence>(googlePolylineLocationCoordinateSequence sequence: S)
+  where S.Iterator.Element == CLLocationCoordinate2D {
+    var encoder = CoordinateEncoder()
+    self.init(sequence.reduce("") {
+      $0 + encoder.encode(coordinate: $1)
+    })
+  }
+  
+  init<S: Sequence>(googlePolylineMapPointSequence sequence: S)
+  where S.Iterator.Element == MKMapPoint {
+    self.init(googlePolylineLocationCoordinateSequence: sequence.map(\.coordinate))
+  }
+  
+  init(googlePolylineMKMultiPoint polyline: MKMultiPoint) {
     
-    private struct CoordinateEncoder {
-        
-        private struct PointEncoder {
-            
-            private var previousValue:Int = 0
-            
-            mutating func encode(coordinate:CLLocationDegrees) -> String {
-                
-                let intCoord = Int(round(coordinate * 1E5))
-                let delta = intCoord - self.previousValue
-                self.previousValue = intCoord
-                var value = delta << 1;
-                if delta < 0 {
-                    value = ~value
-                }
-                
-                var encoded = ""
-                var hasNext = true
-                while(hasNext) {
-                    let next = value >> 5
-                    var encValue = UInt8(value & 0x1f)
-                    hasNext = next > 0
-                    if hasNext {
-                        encValue = encValue | 0x20
-                    }
-                    encoded.append(Character(UnicodeScalar(encValue + 0x3f)))
-                    value = next
-                }
-                
-                return encoded
-            }
-        }
-        
-        private var latitudeEncoder = PointEncoder()
-        private var longitudeEncoder = PointEncoder()
-        
-        mutating func encode(coordinate:CLLocationCoordinate2D) -> String {
-            return latitudeEncoder.encode(coordinate.latitude) + longitudeEncoder.encode(coordinate.longitude)
-        }
+    var encoder = CoordinateEncoder()
+    
+    var count = polyline.pointCount
+    var ptr = polyline.points()
+    
+    var s = ""
+    while(count > 0) {
+      count -= 1
+      let coord = ptr.pointee.coordinate
+      s = s + encoder.encode(coordinate: coord)
+      ptr = ptr.successor()
     }
     
-    private struct PolylineGenerator : GeneratorType {
-        
-        typealias Element = CLLocationCoordinate2D
-        
-        struct Coordinate {
-            private var value:Double = 0.0
-            mutating func nextValue(polyline:String.UnicodeScalarView, inout index:String.UnicodeScalarView.Index) -> Double? {
-                
-                if index >= polyline.endIndex {
-                    return nil
-                }
-                
-                var byte:Int
-                var res:Int = 0
-                var shift:Int = 0
-                
-                repeat {
-                    byte = Int(polyline[index].value) - 63;
-                    if !(0..<64 ~= byte) {
-                        return nil
-                    }
-                    res |= (byte & 0x1F) << shift;
-                    shift += 5;
-                    index = index.successor()
-                } while (byte >= 0x20 && index < polyline.endIndex);
-                
-                self.value = self.value + Double(((res % 2) == 1) ? ~(res >> 1) : res >> 1);
-                
-                return self.value * 1E-5
-            }
-        }
-        
-        private var polylineUnicodeChars:String.UnicodeScalarView
-        private var current:String.UnicodeScalarView.Index
-        private var latitude:Coordinate = Coordinate()
-        private var longitude:Coordinate = Coordinate()
-        
-        init(_ polyline:String) {
-            self.polylineUnicodeChars = polyline.unicodeScalars
-            self.current = self.polylineUnicodeChars.startIndex
-        }
-        
-        mutating func next() -> Element? {
-            guard let lat = latitude.nextValue(self.polylineUnicodeChars, index: &self.current), let lng = longitude.nextValue(self.polylineUnicodeChars, index: &self.current) else {
-                return nil
-            }
-            return Element(latitude: lat, longitude: lng)
-        }
-    }
-    
-    private struct PolylineSequence : SequenceType {
-        
-        typealias Generator = PolylineGenerator
-        
-        private let encodedPolyline:String
-        
-        init(_ encodedPolyline:String) throws {
-            var index = encodedPolyline.startIndex
-            try encodedPolyline.unicodeScalars.forEach {
-                if !(0..<64 ~= $0.value - 63) {
-                    throw GooglePolylineError.InvalidPolylineString(string: encodedPolyline, errorPosition: index)
-                }
-                index = index.successor()
-            }
-            
-            self.encodedPolyline = encodedPolyline
-        }
-        
-        func generate() -> PolylineGenerator {
-            return PolylineGenerator(self.encodedPolyline)
-        }
-    }
-    
-    /**
-     Initialize string to Google encoded polyline for a sequence of Core Location
-     points.
-     
-     - parameter sequence: Sequence of points to encode
-     
-     - returns: Initialized encoded string
-     */
-    public init<S:SequenceType where S.Generator.Element == CLLocationCoordinate2D>(googlePolylineLocationCoordinateSequence sequence:S) {
-        var encoder = CoordinateEncoder()
-        self.init(sequence.reduce("") {
-            $0 + encoder.encode($1)
-        })
-    }
-    
-    /**
-     Initialize string to Google encoded polyline for a sequence of MKMapPoint
-     points.
-     
-     - parameter sequence: Sequence of points to encode
-     
-     - returns: Initialized encoded string
-     */
-    public init<S:SequenceType where S.Generator.Element == MKMapPoint>(googlePolylineMapPointSequence sequence:S) {
-        self.init(googlePolylineLocationCoordinateSequence:sequence.map { MKCoordinateForMapPoint($0) })
-    }
+    self.init(s)
+  }
+  
+  func makeCoordinateSequenceFromGooglePolyline() throws -> AnySequence<CLLocationCoordinate2D> {
+    return AnySequence<CLLocationCoordinate2D>(try PolylineSequence(self))
+  }
+  
+  func makeCoordinateArrayFromGooglePolyline() throws -> [CLLocationCoordinate2D] {
+    return [CLLocationCoordinate2D](try self.makeCoordinateSequenceFromGooglePolyline())
+  }
+  
+  func makeMKPolylineFromGooglePolyline() throws -> MKPolyline {
+    return MKPolyline(sequence: try self.makeCoordinateSequenceFromGooglePolyline())
+  }
+}
 
-    /**
-     Initialize string to Google encoded polyline from points contained in an instance
-     of MKMultiPoint.
-     
-     - parameter sequence: Sequence of points to encode
-     
-     - returns: Initialized encoded string
-     */
-    public init(googlePolylineMKMultiPoint polyline:MKMultiPoint) {
-        
-        var encoder = CoordinateEncoder()
+// MARK: - CoordinateEncoder
+private struct CoordinateEncoder {
+  private struct PointEncoder {
+    private var previousValue = 0
+    
+    mutating func encode(coordinate: CLLocationDegrees) -> String {
+      
+      let intCoord = Int(round(coordinate * 1E5))
+      let delta = intCoord - self.previousValue
+      self.previousValue = intCoord
+      var value = delta << 1
+      if delta < 0 {
+        value = ~value
+      }
+      
+      var encoded = ""
+      var hasNext = true
+      while(hasNext) {
+        let next = value >> 5
+        var encValue = UInt8(value & 0x1f)
+        hasNext = next > 0
+        if hasNext {
+          encValue = encValue | 0x20
+        }
+        encoded.append(Character(UnicodeScalar(encValue + 0x3f)))
+        value = next
+      }
+      
+      return encoded
+    }
+  }
+  
+  private var latitudeEncoder = PointEncoder()
+  private var longitudeEncoder = PointEncoder()
+  
+  mutating func encode(coordinate: CLLocationCoordinate2D) -> String {
+    self.latitudeEncoder.encode(coordinate: coordinate.latitude)
+    + self.longitudeEncoder.encode(coordinate: coordinate.longitude)
+  }
+}
 
-        var count = polyline.pointCount
-        var ptr = polyline.points()
+// MARK: - PolylineIterator
+private struct PolylineIterator: IteratorProtocol {
+  typealias Element = CLLocationCoordinate2D
+  struct Coordinate {
+    private var value = 0.0
+    mutating func nextValue(
+      polyline: String.UnicodeScalarView,
+      index: inout String.UnicodeScalarView.Index) -> Double? {
         
-        var s = ""
-        while(count-- > 0) {
-            let coord = MKCoordinateForMapPoint(ptr.memory)
-            s = s + encoder.encode(coord)
-            ptr = ptr.successor()
+        if index >= polyline.endIndex {
+          return nil
         }
         
-        self.init(s)
+        var byte: Int
+        var res = 0
+        var shift = 0
+        
+        repeat {
+          byte = Int(polyline[index].value) - 63
+          if !(0..<64 ~= byte) {
+            return nil
+          }
+          res |= (byte & 0x1F) << shift
+          shift += 5
+          index = polyline.index(index, offsetBy: 1)
+        } while (byte >= 0x20 && index < polyline.endIndex)
+        
+        self.value += Double(((res % 2) == 1) ? ~(res >> 1) : res >> 1)
+        
+        return self.value * 1E-5
+      }
+  }
+  
+  private var polylineUnicodeChars: String.UnicodeScalarView
+  private var current: String.UnicodeScalarView.Index
+  private var latitude = Coordinate()
+  private var longitude = Coordinate()
+  
+  init(_ polyline: String) {
+    self.polylineUnicodeChars = polyline.unicodeScalars
+    self.current = self.polylineUnicodeChars.startIndex
+  }
+  
+  mutating func next() -> Element? {
+    guard
+      let lat = self.latitude.nextValue(polyline: self.polylineUnicodeChars, index: &self.current),
+      let lng = self.longitude.nextValue(polyline: self.polylineUnicodeChars, index: &self.current)
+    else {
+      return nil
     }
-    
-    /**
-     Returns sequence of CLLocationCoordinate2D points for the decoded Google polyline
-     string.
-     
-     - throws: GooglePolylineError.InvalidPolylineString if string is not valid polyline
-     
-     - returns: Sequence of coordinates
-     */
-    public func makeCoordinateSequenceFromGooglePolyline() throws -> AnySequence<CLLocationCoordinate2D> {
-        return AnySequence<CLLocationCoordinate2D>(try PolylineSequence(self))
-    }
+    return Element(latitude: lat, longitude: lng)
+  }
+}
 
-    /**
-     Returns array of CLLocationCoordinate2D points for the decoded Google polyline
-     string.
-     
-     - throws: GooglePolylineError.InvalidPolylineString if string is not valid polyline
-     
-     - returns: Array of coordinates
-     */
-    public func makeCoordinateArrayFromGooglePolyline() throws -> [CLLocationCoordinate2D] {
-        return [CLLocationCoordinate2D](try self.makeCoordinateSequenceFromGooglePolyline())
+// MARK: - PolylineSequence
+private struct PolylineSequence : Sequence {
+  private let encodedPolyline: String
+  
+  init(_ encodedPolyline: String) throws {
+    var index = encodedPolyline.startIndex
+    try encodedPolyline.unicodeScalars.forEach {
+      if !(0..<64 ~= $0.value - 63) {
+        throw GooglePolylineError.invalidString(string: encodedPolyline, errorPosition: index)
+      }
+      index = encodedPolyline.index(index, offsetBy: 1)
     }
     
-    /**
-     Returns MKPolyline instance containing points from decoded Google polyline
-     string.
-     
-     - throws: GooglePolylineError.InvalidPolylineString if string is not valid polyline
-     
-     - returns: MKPolyline instance
-     */
-    public func makeMKPolylineFromGooglePolyline() throws -> MKPolyline {
-        return MKPolyline(sequence:try self.makeCoordinateSequenceFromGooglePolyline())
-    }
+    self.encodedPolyline = encodedPolyline
+  }
+  
+  func makeIterator() -> PolylineIterator {
+    PolylineIterator(self.encodedPolyline)
+  }
 }

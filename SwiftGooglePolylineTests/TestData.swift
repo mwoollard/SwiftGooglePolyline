@@ -33,30 +33,30 @@ import MapKit
 
 let testEncodedGooglePolyline = "_p~iF~ps|U_ulLnnqC_mqNvxq`@"
 let testDecodedCoordinates = [
-    CLLocationCoordinate2D(latitude: 38.5, longitude: -120.2),
-    CLLocationCoordinate2D(latitude: 40.7, longitude: -120.95),
-    CLLocationCoordinate2D(latitude: 43.252, longitude: -126.453)
+  CLLocationCoordinate2D(latitude: 38.5, longitude: -120.2),
+  CLLocationCoordinate2D(latitude: 40.7, longitude: -120.95),
+  CLLocationCoordinate2D(latitude: 43.252, longitude: -126.453)
 ]
 
 extension XCTestCase {
-    func validate(mkPolyline:MKPolyline) {
-        var resultIndex = testDecodedCoordinates.startIndex
-        
-        var ptr = mkPolyline.points()
-        var count = mkPolyline.pointCount
-        
-        while(count > 0) {
-            
-            let point = ptr.memory
-            let testPoint = MKMapPointForCoordinate(testDecodedCoordinates[resultIndex])
-            
-            XCTAssertEqualWithAccuracy(point.x, testPoint.x, accuracy:0.0001)
-            XCTAssertEqualWithAccuracy(point.y, testPoint.y, accuracy:0.0001)
-            ptr = ptr.successor()
-            resultIndex = resultIndex.successor()
-            count = count - 1
-        }
+  func validate(mkPolyline:MKPolyline) {
+    var resultIndex = testDecodedCoordinates.startIndex
+    
+    var ptr = mkPolyline.points()
+    var count = mkPolyline.pointCount
+    
+    while(count > 0) {
+      
+      let point = ptr.pointee
+      let testPoint = MKMapPoint(testDecodedCoordinates[resultIndex])
+      
+      XCTAssertEqual(point.x, testPoint.x, accuracy:0.0001)
+      XCTAssertEqual(point.y, testPoint.y, accuracy:0.0001)
+      ptr = ptr.successor()
+      resultIndex += 1
+      count = count - 1
     }
+  }
 }
 
 
