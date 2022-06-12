@@ -31,7 +31,7 @@ extension MKPolyline {
     self.init(sequence: try encodedGooglePolyline.makeCoordinateSequenceFromGooglePolyline())
   }
   
-  public convenience init<S: Sequence>(sequence:S) where S.Iterator.Element == CLLocationCoordinate2D {
+  public convenience init<S: Sequence>(sequence: S) where S.Iterator.Element == CLLocationCoordinate2D {
     let array = Array<CLLocationCoordinate2D>(sequence)
     self.init(coordinates: array, count: array.count)
   }

@@ -27,7 +27,7 @@
 import MapKit
 
 public extension String {
-  init<S: Sequence>(googlePolylineLocationCoordinateSequence sequence:S)
+  init<S: Sequence>(googlePolylineLocationCoordinateSequence sequence: S)
   where S.Iterator.Element == CLLocationCoordinate2D {
     var encoder = CoordinateEncoder()
     self.init(sequence.reduce("") {
@@ -37,7 +37,7 @@ public extension String {
   
   init<S: Sequence>(googlePolylineMapPointSequence sequence: S)
   where S.Iterator.Element == MKMapPoint {
-    self.init(googlePolylineLocationCoordinateSequence:sequence.map { $0.coordinate })
+    self.init(googlePolylineLocationCoordinateSequence: sequence.map(\.coordinate))
   }
   
   init(googlePolylineMKMultiPoint polyline: MKMultiPoint) {
@@ -67,7 +67,7 @@ public extension String {
   }
   
   func makeMKPolylineFromGooglePolyline() throws -> MKPolyline {
-    return MKPolyline(sequence:try self.makeCoordinateSequenceFromGooglePolyline())
+    return MKPolyline(sequence: try self.makeCoordinateSequenceFromGooglePolyline())
   }
 }
 
